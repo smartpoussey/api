@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Movies</title>
+    <Style>
+        body{
+    background: #000;
+}
+
+.display_movies{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.display_movies li{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    background: #272727;
+}
+
+.display_movies li img{
+    max-width: 300px;
+    border-radius: 12px;
+}
+    </Style>
+</head>
+<body>
+    <h1>MOVIES</h1>
+    <input type="text" id="searchInput" placeholder="Search for movies...">
+    <button id="searchBtn">Search</button>
+    <div class="display_movies">
+
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
