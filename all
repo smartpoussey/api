@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+                    async function fetchData() {
+                    const url = 'https://gowatch.p.rapidapi.com/lookup/title/tmdb_id?id=496243&type=movie&country=us';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'X-RapidAPI-Key': '8f2753851cmshda783290698aa48p1689fdjsn883718db32b9',
+                    'X-RapidAPI-Host': 'gowatch.p.rapidapi.com'
+                },
+                body: new URLSearchParams({
+                    id: '496243',
+                    type: 'movie',
+                    country: 'us'
+                })
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.text();
+                console.log(result);
+            } catch (error) {
+                console.error(error);
+            }
+}
+
+fetchData(); // Call the function to fetch data
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Movies</title>
+    <Style>
+        body{
+    background: #000;
+}
+
+.display_movies{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.display_movies li{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    background: #272727;
+}
+
+.display_movies li img{
+    max-width: 300px;
+    border-radius: 12px;
+}
+    </Style>
+</head>
+<body>
+    <h1>MOVIES</h1>
+    <input type="text" id="searchInput" placeholder="Search for movies...">
+    <button id="searchBtn">Search</button>
+    <div class="display_movies">
+
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+main.js
+document.addEventListener('DOMContentLoaded',function(){
+
+    const searchBtn=document.getElementById('searchBtn');
+    const searchInput=document.getElementById('searchInput');
+
+    searchBtn.addEventListener("click",function(){
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm === '') {
+            alert('Please enter a search term');
+            return;
+        }
+                fetch( https://imdb8.p.rapidapi.com/auto-complete?q=${searchTerm},{
+
+                "method": 'GET',
+                "headers": {
+                    'X-RapidAPI-Key': '8f2753851cmshda783290698aa48p1689fdjsn883718db32b9',
+                    'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+                }
+                })
+
+            // returning the resoonse in json
+            
+            .then(response => response.json())
+            //now we have our data , we have to use these -> have list in array put it in html 
+            //.then(data => console.log(data))
+            .then(data => {
+                const displayMovies = document.querySelector('.display_movies');
+                displayMovies.innerHTML = ''; // Clear previous results
+
+                const list = data.d;
+
+                
+                list.map((item) => {
+                    //console.log(item)
+                    //if we see the values in item, we see l->title , i->imgae resource , now we have to fetch these
+
+                    const name=item.l;
+                    const poster=item.i.imageUrl;
+                    const movie=<li><img src="${poster}"> <h2>${name}</h2></li>
+
+                    //now add these list to the html page -> in class movies
+                    document.querySelector('.display_movies').innerHTML+=movie;
+                })
+            })
+            .catch(err =>{
+                console.error(err);
+            })
+
+    });
+    
+
+});
