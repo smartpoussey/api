@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+                    async function fetchData() {
+                    const url = 'https://gowatch.p.rapidapi.com/lookup/title/tmdb_id?id=496243&type=movie&country=us';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'X-RapidAPI-Key': '8f2753851cmshda783290698aa48p1689fdjsn883718db32b9',
+                    'X-RapidAPI-Host': 'gowatch.p.rapidapi.com'
+                },
+                body: new URLSearchParams({
+                    id: '496243',
+                    type: 'movie',
+                    country: 'us'
+                })
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.text();
+                console.log(result);
+            } catch (error) {
+                console.error(error);
+            }
+}
+
+fetchData(); // Call the function to fetch data
+    </script>
+</body>
+</html>
